@@ -1,0 +1,92 @@
+# ==========================
+# Node.js / Next.js
+# ==========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.pnpm-debug.log
+
+# ==========================
+# Build outputs
+# ==========================
+.next/
+out/
+dist/
+build/
+.cache/
+.vercel/
+.vercel_build_output/
+.next-static/
+.next-cache/
+.next/data/
+
+# ==========================
+# Local environment files
+# ==========================
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+# ==========================
+# Logs & temp files
+# ==========================
+logs
+*.log
+*.log.*
+pids
+*.pid
+*.seed
+*.pid.lock
+tmp/
+temp/
+.DS_Store
+Thumbs.db
+
+# ==========================
+# IDE & OS files
+# ==========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.swm
+
+# ==========================
+# Test coverage / cache
+# ==========================
+coverage/
+.nyc_output/
+jest-cache/
+jest-html-reporters-*
+cypress/videos/
+cypress/screenshots/
+playwright-report/
+
+# ==========================
+# Miscellaneous
+# ==========================
+*.local
+*.envrc
+*.pem
+*.key
+*.crt
+*.p12
+
+# ==========================
+# Backend Specific (Express/Mongo)
+# ==========================
+uploads/
+uploads/*
+temp/
+tmp/
+*.bak
+*.gz
+*.zip
+
