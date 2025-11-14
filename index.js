@@ -5,8 +5,8 @@ import { connectDB } from "./libs/db.js";
 import testRoutes from "./routes/testRoutes.js";
 import contactRoutes from "./routes/contactRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import coursesRoutes from "./routes/coursesRoutes.js";
 
-dotenv.config();
 const app = express();
 const port = process.env.PORT || 5001;
 
@@ -38,6 +38,7 @@ app.use(express.json());
 app.use("/api", testRoutes);
 app.use("/api", contactRoutes);
 app.use("/api",bookingRoutes);
+app.use("/api",coursesRoutes);
 
 // Health check route
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
