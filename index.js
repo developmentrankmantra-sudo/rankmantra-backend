@@ -20,6 +20,7 @@ const allowedOrigins = [
   "https://rankmantraacademy.vercel.app",
   "https://admin.yourapp.com",
   "https://yourapp.com",
+  
 ];
 
 app.use(
