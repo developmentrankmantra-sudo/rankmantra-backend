@@ -18,7 +18,7 @@ export const sendContactEmail = async (formData) => {
 
   const mailOptions = {
     from: `"RankMantra Academy" <${process.env.SMTP_USER}>`,
-    to: "rohitrankmantra12@gmail.com", // fixed recipient
+    to: "info@rankmantraacademy.com", 
     subject: `New Contact Inquiry from ${name}`,
 html: `
   <div style="font-family: Arial, sans-serif; padding: 20px; background: #f8f8f8;">
