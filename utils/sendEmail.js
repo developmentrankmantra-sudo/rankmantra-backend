@@ -1,53 +1,108 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-// ✅ Initialize Resend client
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Create reusable transporter
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 // ✅ Send Contact Form Email
 export const sendContactEmail = async (formData) => {
   const { name, email, phoneNumber, websiteUrl, message } = formData;
 
-  try {
-    await resend.emails.send({
-      from: "RankMantra Academy <onboarding@resend.dev>", // or use your verified domain later
-      to: "rohitrankmantra12@gmail.com",
-      subject: `New Contact Inquiry from ${name}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phoneNumber}</p>
-        <p><strong>Website:</strong> ${websiteUrl || "N/A"}</p>
-        <p><strong>Message:</strong> ${message}</p>
-      `,
-    });
-    console.log("✅ Contact email sent successfully!");
-  } catch (error) {
-    console.error("❌ Failed to send contact email:", error);
-  }
+  const mailOptions = {
+    from: `"RankMantra Academy" <${process.env.SMTP_USER}>`,
+    to: "rohitrankmantra12@gmail.com", // fixed recipient
+    subject: `New Contact Inquiry from ${name}`,
+html: `
+  <div style="font-family: Arial, sans-serif; padding: 20px; background: #f8f8f8;">
+    <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 10px; padding: 25px; border: 1px solid #eee;">
+      
+      <h2 style="color: #333; border-bottom: 2px solid #4A90E2; padding-bottom: 6px;">
+        New Contact Form Submission
+      </h2>
+
+      <table style="width: 100%; margin-top: 15px; font-size: 15px;">
+        <tr>
+          <td style="font-weight: bold; padding: 6px 0;">Name:</td>
+          <td>${name}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; padding: 6px 0;">Email:</td>
+          <td>${email}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; padding: 6px 0;">Phone:</td>
+          <td>${phoneNumber}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; padding: 6px 0;">Website:</td>
+          <td>${websiteUrl || "N/A"}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; padding: 6px 0; vertical-align: top;">Message:</td>
+          <td>${message}</td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 25px; font-size: 13px; color: #888;">
+        <p>This email was automatically generated from the RankMantra Academy website.</p>
+      </div>
+    </div>
+  </div>
+`
+
+  };
+
+  await transporter.sendMail(mailOptions);
 };
 
 // ✅ Send Booking Form Email
 export const sendBookingEmail = async (formData) => {
   const { fullName, phoneNumber, selectedCourse } = formData;
 
-  try {
-    await resend.emails.send({
-      from: "RankMantra Academy <onboarding@resend.dev>",
-      to: "rohitrankmantra12@gmail.com",
-      subject: `New Booking from ${fullName}`,
-      html: `
-        <h2>New Booking Request</h2>
-        <p><strong>Full Name:</strong> ${fullName}</p>
-        <p><strong>Phone Number:</strong> ${phoneNumber}</p>
-        <p><strong>Selected Course:</strong> ${selectedCourse}</p>
-      `,
-    });
-    console.log("✅ Booking email sent successfully!");
-  } catch (error) {
-    console.error("❌ Failed to send booking email:", error);
-  }
+  const mailOptions = {
+    from: `"RankMantra Academy" <${process.env.SMTP_USER}>`,
+    to: "rohitrankmantra12@gmail.com", // same recipient
+    subject: `New Booking from ${fullName}`,
+ html: `
+  <div style="font-family: Arial, sans-serif; padding: 20px; background: #f8f8f8;">
+    <div style="max-width: 600px; margin: auto; background: #ffffff; border-radius: 10px; padding: 25px; border: 1px solid #eee;">
+      
+      <h2 style="color: #333; border-bottom: 2px solid #4A90E2; padding-bottom: 6px;">
+        New Booking Request
+      </h2>
+
+      <table style="width: 100%; margin-top: 15px; font-size: 15px;">
+        <tr>
+          <td style="font-weight: bold; padding: 6px 0;">Full Name:</td>
+          <td>${fullName}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; padding: 6px 0;">Phone Number:</td>
+          <td>${phoneNumber}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; padding: 6px 0;">Selected Course:</td>
+          <td>${selectedCourse}</td>
+        </tr>
+      </table>
+
+      <div style="margin-top: 25px; font-size: 13px; color: #888;">
+        <p>This email was automatically generated from the RankMantra Academy website.</p>
+      </div>
+
+    </div>
+  </div>
+`
+
+  };
+
+  await transporter.sendMail(mailOptions);
 };

@@ -41,6 +41,8 @@ app.use("/api",bookingRoutes);
 // Health check route
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
+app.get("/", (req, res) => res.send("Hello User !"))
+
 // Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
