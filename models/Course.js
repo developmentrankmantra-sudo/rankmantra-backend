@@ -29,7 +29,7 @@ const courseSchema = new mongoose.Schema(
     },
     curriculum: {
       type: String,
-      required: true,
+      required:false,
     },
   },
   { timestamps: true }

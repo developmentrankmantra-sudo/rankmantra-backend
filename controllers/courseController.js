@@ -27,8 +27,8 @@ export const createCourse = async (req, res) => {
   if (!title || !description || !price || !duration)
     return res.status(400).json({ message: "All fields are required" });
 
-  if (!thumbnailFile || !curriculumFile)
-    return res.status(400).json({ message: "Thumbnail & curriculum required" });
+  if (!thumbnailFile )
+    return res.status(400).json({ message: "Thumbnail required" });
 
   const thumbnailUpload = await uploadToCloudinary(
     thumbnailFile.buffer,
