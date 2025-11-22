@@ -35,12 +35,19 @@ const upload = multer({
 });
 
 // Cloudinary upload function that uploads buffer to specified folder & resource type
-export const uploadToCloudinary = (buffer, folder, resourceType) => {
+export const uploadToCloudinary = (buffer, folder, resourceType, originalName) => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader.upload_stream(
       {
-        folder,          // ex: "courses/thumbnails" or "courses/curriculum"
-        resource_type: resourceType, // "image" or "raw"
+        folder,
+        resource_type: resourceType,
+
+        // 👇 IMPORTANT FIX FOR PDF
+      filename_override: `${Date.now()}-${originalName}`,
+use_filename: true,
+unique_filename: false,
+
+        format: resourceType === "raw" ? "pdf" : undefined,
       },
       (error, result) => {
         if (error) reject(error);
@@ -49,5 +56,6 @@ export const uploadToCloudinary = (buffer, folder, resourceType) => {
     ).end(buffer);
   });
 };
+
 
 export default upload;

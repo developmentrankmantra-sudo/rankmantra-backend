@@ -36,12 +36,12 @@ export const createCourse = async (req, res) => {
     "image"
   );
 
-  const curriculumUpload = await uploadToCloudinary(
-    curriculumFile.buffer,
-    "courses/curriculum",
-    "raw"
-  );
-
+const curriculumUpload = await uploadToCloudinary(
+  curriculumFile.buffer,
+  "courses/curriculum",
+  "raw",
+  curriculumFile.originalname
+);
   const course = await Course.create({
     title,
     description,
